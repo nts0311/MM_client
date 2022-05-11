@@ -9,10 +9,12 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.tabs.TabLayout
 import com.sonnt.moneymanagement.R
 import com.sonnt.moneymanagement.constant.TimeRange
 import com.sonnt.moneymanagement.constant.ViewType
+import com.sonnt.moneymanagement.data.repositories.AuthRepository
 import com.sonnt.moneymanagement.databinding.ActivityMainBinding
 import com.sonnt.moneymanagement.features.base.BaseActivity
 import com.sonnt.moneymanagement.features.report.report_fragment.ReportFragment
@@ -23,6 +25,7 @@ import com.sonnt.moneymanagement.utils.NumberFormatter
 import com.sonnt.moneymanagement.utils.createRangeSelectDialog
 import com.sonnt.moneymanagement.utils.showRangeSelectDialog
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.launch
 
 class MainActivity : BaseActivity() {
     private var fragmentTransactions = TransactionsFragment()
@@ -40,6 +43,14 @@ class MainActivity : BaseActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+        lifecycleScope.launch {
+            AuthRepository.login("son","123456").collect {
+                initScreen()
+            }
+        }
+    }
+
+    private fun initScreen() {
         supportFragmentManager.apply {
             beginTransaction().add(R.id.fragment_container, fragmentReport, "frag_report")
                 .hide(fragmentReport).commit()

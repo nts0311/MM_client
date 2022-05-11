@@ -32,12 +32,18 @@ object WalletRepository {
     }
 
     init {
-        scope.launch {
-            val walletList = walletDatasource.getWallets().first()
+//        scope.launch {
+//            val walletList = walletDatasource.getWallets().first()
+//
+//            for (wallet in walletList) {
+//                _walletsMap[wallet.id] = wallet
+//            }
+//        }
+    }
 
-            for (wallet in walletList) {
-                _walletsMap[wallet.id] = wallet
-            }
+    fun updateWalletData(walletList: List<Wallet>) {
+        for (wallet in walletList) {
+            _walletsMap[wallet.id] = wallet
         }
     }
 

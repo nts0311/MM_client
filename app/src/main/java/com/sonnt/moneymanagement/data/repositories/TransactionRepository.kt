@@ -43,9 +43,9 @@ object TransactionRepository {
             fetchedRange[key]!!
         else {
             val transactions =
-                if (walletId == 1L)
-                    transactionDataSource.getTransactionsBetweenRange(start, end)
-                else
+//                if (walletId == 1L)
+//                    transactionDataSource.getTransactionsBetweenRange(start, end)
+//                else
                     transactionDataSource.getTransactionsBetweenRangeOfWallet(
                         start,
                         end,

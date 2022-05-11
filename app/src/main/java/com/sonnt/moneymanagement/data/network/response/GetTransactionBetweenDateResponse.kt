@@ -2,10 +2,11 @@ package com.sonnt.moneymanagement.data.network.response
 
 import com.sonnt.moneymanagement.data.entities.Transaction
 
-class GetTransactionBetweenDateResponse: BaseResponse<TransactionPage>()
-{
-    override var data: TransactionPage? = null
-}
+data class GetTransactionBetweenDateResponse (
+    var code: Int = 0,
+    var message: String = "",
+    var data: TransactionPage? = null
+)
 
 data class TransactionPage(
     var page: Int = 0,

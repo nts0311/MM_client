@@ -3,17 +3,21 @@ package com.sonnt.moneymanagement.features.main_activity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sonnt.moneymanagement.R
 import com.sonnt.moneymanagement.constant.TimeRange
 import com.sonnt.moneymanagement.constant.ViewType
 import com.sonnt.moneymanagement.data.repositories.WalletRepository
 import com.sonnt.moneymanagement.data.entities.Category
 import com.sonnt.moneymanagement.data.entities.Wallet
 import com.sonnt.moneymanagement.data.mm_context.MMContext
+import com.sonnt.moneymanagement.data.repositories.CategoryRepository
 import com.sonnt.moneymanagement.utils.toEpoch
 import com.sonnt.moneymanagement.utils.toLocalDate
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import kotlin.math.absoluteValue
 
 class MainActivityViewModel() : ViewModel() {
     var startTime: Long = 0L
@@ -31,7 +35,8 @@ class MainActivityViewModel() : ViewModel() {
 
     init {
         initTimeRange()
-        WalletRepository.setCurrentWallet(1L)
+        initData()
+        //WalletRepository.setCurrentWallet(1L)
     }
 
     private fun initTimeRange() {
@@ -42,6 +47,22 @@ class MainActivityViewModel() : ViewModel() {
             LocalDate.of(ld.year, ld.monthValue, 1)
                 .minusMonths(18)
         )
+    }
+
+    fun initData() {
+        viewModelScope.launch {
+            WalletRepository.getWallets().collect {
+                WalletRepository.updateWalletData(it)
+
+                if (it.isNotEmpty()) {
+                    WalletRepository.setCurrentWallet(it.first().id)
+                }
+            }
+
+            CategoryRepository.getCategories().collect {
+                CategoryRepository.updateCategoriesMap(it)
+            }
+        }
     }
 
     fun updateCategories(categories: List<Category>) {

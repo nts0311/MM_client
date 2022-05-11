@@ -16,13 +16,13 @@ object CategoryRepository {
     var categoryMap: Map<Long, Category> = _categoriesMap
 
     init {
-        CoroutineScope(Dispatchers.Default).launch {
-            val walletList = categoryDataSource.getCategoriesFlow().first()
-
-            for (category in walletList) {
-                _categoriesMap[category.id] = category
-            }
-        }
+//        CoroutineScope(Dispatchers.Default).launch {
+//            val walletList = categoryDataSource.getCategoriesFlow().first()
+//
+//            for (category in walletList) {
+//                _categoriesMap[category.id] = category
+//            }
+//        }
     }
 
     fun updateCategoriesMap(categories: List<Category>) {
@@ -31,6 +31,8 @@ object CategoryRepository {
                 _categoriesMap[category.id] = category
         }
     }
+
+    fun getCategories() = categoryDataSource.getCategoriesFlow()
 
     fun getCategoriesLiveData(): LiveData<List<Category>> = categoryDataSource.getCategories()
 

@@ -70,14 +70,14 @@ class CategoryListFragment : Fragment() {
         viewModel.categories.observe(viewLifecycleOwner)
         {
 
-            if(addAllCategory)
-            {
-                val list = mutableListOf( Category(-1, -1, getString(R.string.all_categories),Constants.TYPE_EXPENSE,R.drawable.ic_category_all))
-                list.addAll(it)
-                adapter.categories = list
-            }
-            else
-                adapter.categories = it
+//            if(addAllCategory)
+//            {
+//                val list = mutableListOf( Category(-1, -1, getString(R.string.all_categories),Constants.TYPE_EXPENSE,R.drawable.ic_category_all))
+//                list.addAll(it)
+//                adapter.categories = list
+//            }
+//            else
+            adapter.categories = it
 
             currentList = it
         }
