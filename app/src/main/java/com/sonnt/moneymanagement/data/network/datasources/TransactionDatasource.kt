@@ -5,6 +5,7 @@ import androidx.lifecycle.asLiveData
 import com.sonnt.moneymanagement.data.entities.Transaction
 import com.sonnt.moneymanagement.data.network.NetworkModule
 import com.sonnt.moneymanagement.data.network.request.CreateTransactionRequest
+import com.sonnt.moneymanagement.data.network.request.DeleteTransactionRequest
 import com.sonnt.moneymanagement.data.network.request.GetTransactionBetweenDateRequest
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -53,7 +54,11 @@ class TransactionDatasource {
         return response.code()
     }
 
-    fun deleteTransaction(transaction: Transaction): Int {
-        return 200
+    suspend fun deleteTransaction(transaction: Transaction): Int {
+        val body = DeleteTransactionRequest(transaction.id)
+
+        httpRequest { transactionService.deleteTransaction(body) }
+
+        return 0
     }
 }

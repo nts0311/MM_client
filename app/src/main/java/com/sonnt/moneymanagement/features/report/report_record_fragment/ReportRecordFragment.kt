@@ -55,6 +55,26 @@ class ReportRecordFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_report_record, container, false)
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        income_expense_chart.clear()
+        income_chart.clear()
+        expense_chart.clear()
+
+        observeBarChartData()
+        observePieChartData()
+
+        viewModel.setTimeRange(startTime!!, endTime!!, timeRange!!, walletId!!)
+        viewModel.getPieEntries(startTime!!, endTime!!, walletId!!)
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+
+//        viewModel.setTimeRange(startTime!!, endTime!!, timeRange!!, walletId!!)
+//        viewModel.getPieEntries(startTime!!, endTime!!, walletId!!)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -85,12 +105,14 @@ class ReportRecordFragment : Fragment() {
     private fun registerObservers() {
         viewModel.currentWallet.observe(viewLifecycleOwner)
         {
-            viewModel.setTimeRange(startTime!!, endTime!!, timeRange!!, it.id)
-            viewModel.getPieEntries(startTime!!, endTime!!, it.id)
 
             income_expense_chart.clear()
             income_chart.clear()
             expense_chart.clear()
+
+            walletId = it.id
+            viewModel.setTimeRange(startTime!!, endTime!!, timeRange!!, it.id)
+            viewModel.getPieEntries(startTime!!, endTime!!, it.id)
 
             observeBarChartData()
             observePieChartData()

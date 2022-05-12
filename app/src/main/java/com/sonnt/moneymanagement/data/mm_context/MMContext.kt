@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.sonnt.moneymanagement.constant.TimeRange
 import com.sonnt.moneymanagement.constant.ViewType
+import com.sonnt.moneymanagement.data.entities.Transaction
+import com.sonnt.moneymanagement.data.entities.Wallet
 import com.sonnt.moneymanagement.features.main_activity.TabInfo
 
 //MM specific context
@@ -27,4 +29,7 @@ object MMContext {
     }
 
     var viewMode = MutableLiveData(ViewType.TRANSACTION)
+
+    var addedTransaction = MutableLiveData<Transaction?>()
+    var addedWallet = MutableLiveData<Wallet?>()
 }

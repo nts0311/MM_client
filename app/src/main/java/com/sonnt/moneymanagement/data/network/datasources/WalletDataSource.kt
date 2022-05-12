@@ -32,7 +32,7 @@ class WalletDataSource {
 
     }
 
-    fun deleteWallet(wallet: Wallet) {
-
+    suspend fun deleteWallet(wallet: Wallet) {
+        walletService.deleteWallet(wallet.id)
     }
 }

@@ -37,6 +37,12 @@ class SelectWalletActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getWalletList()
+        //registerListener()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.select_wallet_menu, menu)
         return true

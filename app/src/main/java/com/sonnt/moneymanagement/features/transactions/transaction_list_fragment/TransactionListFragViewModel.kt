@@ -70,6 +70,11 @@ class TransactionListFragViewModel() : BaseViewModel() {
         previousWalletId = walletId
     }
 
+    fun refresh() {
+        filteredList = TransactionRepository.getTransactionsBetweenRange(startTime, endTime, previousWalletId)
+        groupData()
+    }
+
     private fun groupData(filteringParams: FilteringParams? = null) {
         groupDataJob?.cancel()
 

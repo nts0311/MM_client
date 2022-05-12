@@ -1,11 +1,13 @@
 package com.sonnt.moneymanagement.data.network.services
 
 import com.sonnt.moneymanagement.data.network.request.CreateTransactionRequest
+import com.sonnt.moneymanagement.data.network.request.DeleteTransactionRequest
 import com.sonnt.moneymanagement.data.network.request.GetTransactionBetweenDateRequest
 import com.sonnt.moneymanagement.data.network.response.GetTransactionBetweenDateResponse
 import com.sonnt.moneymanagement.data.network.response.GetTransactionByIdResponse
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -19,9 +21,12 @@ interface TransactionService {
         @Query("end") end: Long
     ): Response<GetTransactionBetweenDateResponse>
 
-    @POST("transaction/get-by-id")
+    @GET("transaction/get-by-id")
     suspend fun getTransactionsById(@Query("transactionId") id: Long): Response<GetTransactionByIdResponse>
 
     @POST("transaction/create")
     suspend fun createTransaction(@Body body: CreateTransactionRequest): Response<*>
+
+    @POST("transaction/delete")
+    suspend fun deleteTransaction(@Body body: DeleteTransactionRequest): Response<*>
 }

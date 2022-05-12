@@ -7,10 +7,13 @@ import androidx.lifecycle.asLiveData
 import com.sonnt.moneymanagement.MMApplication
 import com.sonnt.moneymanagement.data.entities.Wallet
 import com.sonnt.moneymanagement.data.network.datasources.WalletDataSource
+import com.sonnt.moneymanagement.data.network.datasources.httpRequest
 import com.sonnt.moneymanagement.data.network.request.CreateWalletRequest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 object WalletRepository {
@@ -21,14 +24,16 @@ object WalletRepository {
 
     private val scope = CoroutineScope(Dispatchers.Default)
 
-    private var _currentWalletId: MutableLiveData<Long> = MutableLiveData()
-    var currentWallet: LiveData<Wallet> = Transformations.switchMap(_currentWalletId)
-    {
-        walletDatasource.getWalletById(it).asLiveData()
-    }
+//    private var _currentWalletId: MutableLiveData<Long> = MutableLiveData()
+//    var currentWallet: LiveData<Wallet> = Transformations.switchMap(_currentWalletId)
+//    {
+//        walletDatasource.getWalletById(it).asLiveData()
+//    }
+
+    var currentWallet = MutableLiveData<Wallet>()
 
     fun setCurrentWallet(walletId: Long) {
-        _currentWalletId.value = walletId
+        currentWallet.value = _walletsMap[walletId]
     }
 
     init {
@@ -48,7 +53,8 @@ object WalletRepository {
     }
 
     suspend fun insertWallet(wallet: Wallet): Int {
-        return walletDatasource.insertWallet(wallet)
+        val response = walletDatasource.insertWallet(wallet)
+        return response
     }
 
     suspend fun updateWallet(wallet: Wallet): Int {
@@ -56,10 +62,15 @@ object WalletRepository {
     }
 
     suspend fun deleteWallet(wallet: Wallet): Int {
+        walletDatasource.deleteWallet(wallet)
+
         return 200
     }
 
     fun getWalletById(id: Long) = walletDatasource.getWalletById(id)
 
-    fun getWallets() = walletDatasource.getWallets()
+    fun getWallets() = walletDatasource.getWallets().map {
+        updateWalletData(it)
+        it
+    }
 }

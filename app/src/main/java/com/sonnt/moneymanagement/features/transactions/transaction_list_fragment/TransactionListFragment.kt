@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.sonnt.moneymanagement.R
 import com.sonnt.moneymanagement.constant.TimeRange
+import com.sonnt.moneymanagement.data.mm_context.MMContext
 import com.sonnt.moneymanagement.data.repositories.CategoryRepository
 import com.sonnt.moneymanagement.features.transactions.transaction_detail_activity.TransactionDetailActivity
 import kotlinx.android.synthetic.main.fragment_transaction_list.*
@@ -71,6 +72,28 @@ class TransactionListFragment : Fragment() {
         }
 
         return inflater.inflate(R.layout.fragment_transaction_list, container, false)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        //lol
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.refresh()
+//        if (startTime != null && endTime != null && timeRange != null) {
+//            viewModel.setTimeRange(
+//                startTime!!,
+//                endTime!!,
+//                timeRange!!,
+//                walletId!!,
+//                filteringParams
+//            )
+//        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
