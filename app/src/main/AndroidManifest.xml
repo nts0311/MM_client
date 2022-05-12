@@ -2,31 +2,33 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sonnt.moneymanagement">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".MMApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".MMApplication"
         android:theme="@style/AppTheme">
         <activity
             android:name=".features.main_activity.MainActivity"
-            android:exported="true">
+            android:exported="true" />
+        <activity
+            android:name=".features.login.LoginActivity"
+            android:exported="true"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".features.report.pie_chart_detail_activity.PieChartDetailActivity"
             android:parentActivityName=".features.main_activity.MainActivity" />
-        <activity android:name=".features.transactions.transaction_list_activity.TransactionListActivity" />
-<!--            android:parentActivityName=".bar_chart_detail_activity.BarChartDetailActivity" /> -->
+        <activity android:name=".features.transactions.transaction_list_activity.TransactionListActivity" /> <!-- android:parentActivityName=".bar_chart_detail_activity.BarChartDetailActivity" /> -->
         <activity
             android:name=".features.report.bar_chart_detail_activity.BarChartDetailActivity"
             android:launchMode="singleTop"

@@ -43,11 +43,7 @@ class MainActivity : BaseActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        lifecycleScope.launch {
-            AuthRepository.login("son","123456").collect {
-                initScreen()
-            }
-        }
+        initScreen()
     }
 
     private fun initScreen() {
