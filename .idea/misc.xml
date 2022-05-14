@@ -7,6 +7,13 @@
         <entry key="..\:/Users/son/Desktop/NewMM/MM/app/src/main/res/layout/activity_main.xml" value="0.31521739130434784" />
         <entry key="..\:/Users/son/Desktop/NewMM/MM/app/src/main/res/layout/activity_select_image.xml" value="0.13451086956521738" />
         <entry key="..\:/Users/son/Desktop/NewMM/MM/app/src/main/res/layout/fragment_report_record.xml" value="0.13451086956521738" />
+        <entry key="..\:/Users/son/Desktop/NewMM/MM/app/src/main/res/menu/add_transaction_frag_menu.xml" value="0.209375" />
+        <entry key="..\:/Users/son/Desktop/NewMM/MM/app/src/main/res/menu/bottom_nav_menu.xml" value="0.209375" />
+        <entry key="..\:/Users/son/Desktop/NewMM/MM/app/src/main/res/menu/budget_detail_menu.xml" value="0.209375" />
+        <entry key="..\:/Users/son/Desktop/NewMM/MM/app/src/main/res/menu/report_frag_menu.xml" value="0.209375" />
+        <entry key="..\:/Users/son/Desktop/NewMM/MM/app/src/main/res/menu/select_category_menu.xml" value="0.209375" />
+        <entry key="..\:/Users/son/Desktop/NewMM/MM/app/src/main/res/menu/select_wallet_menu.xml" value="0.209375" />
+        <entry key="..\:/Users/son/Desktop/NewMM/MM/app/src/main/res/menu/transactions_frag_menu.xml" value="0.209375" />
       </map>
     </option>
   </component>

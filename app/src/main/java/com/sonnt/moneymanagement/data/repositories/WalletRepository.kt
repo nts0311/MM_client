@@ -11,6 +11,8 @@ import com.sonnt.moneymanagement.data.network.datasources.httpRequest
 import com.sonnt.moneymanagement.data.network.request.CreateWalletRequest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
@@ -22,7 +24,7 @@ object WalletRepository {
     private var _walletsMap: MutableMap<Long, Wallet> = mutableMapOf()
     val walletMap: Map<Long, Wallet> = _walletsMap
 
-    private val scope = CoroutineScope(Dispatchers.Default)
+    private val scope = CoroutineScope(Dispatchers.Main)
 
 //    private var _currentWalletId: MutableLiveData<Long> = MutableLiveData()
 //    var currentWallet: LiveData<Wallet> = Transformations.switchMap(_currentWalletId)
@@ -32,8 +34,28 @@ object WalletRepository {
 
     var currentWallet = MutableLiveData<Wallet>()
 
+    var job: Job? = null
+
     fun setCurrentWallet(walletId: Long) {
+
+
+
         currentWallet.value = _walletsMap[walletId]
+    }
+
+    fun refreshCurrentWallet() {
+        if (currentWallet.value!=null && job == null)
+        {
+            job = scope.launch {
+                getWalletById(currentWallet.value!!.id).collect {
+                    if (it != null) {
+                        currentWallet.value = it
+                    }
+
+                    job = null
+                }
+            }
+        }
     }
 
     init {

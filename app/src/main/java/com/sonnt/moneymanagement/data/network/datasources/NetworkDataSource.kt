@@ -1,5 +1,6 @@
 package com.sonnt.moneymanagement.data.network.datasources
 
+import com.sonnt.moneymanagement.features.login.LoginActivity
 import retrofit2.Response
 
 suspend fun <T> httpRequest(call: suspend () -> Response<T>): T? {
@@ -11,7 +12,7 @@ suspend fun <T> httpRequest(call: suspend () -> Response<T>): T? {
     else {
         if (response.code() == 401 || response.code() == 403) {
 
-
+            LoginActivity.logout()
         }
         null
     }

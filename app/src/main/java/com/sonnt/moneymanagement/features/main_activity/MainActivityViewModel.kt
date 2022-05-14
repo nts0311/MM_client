@@ -51,17 +51,19 @@ class MainActivityViewModel() : ViewModel() {
 
     fun initData() {
         viewModelScope.launch {
-            WalletRepository.getWallets().collect {
-                WalletRepository.updateWalletData(it)
+            WalletRepository.getWallets().collect {listWallet ->
+                CategoryRepository.getCategories().collect {
+                    CategoryRepository.updateCategoriesMap(it)
 
-                if (it.isNotEmpty()) {
-                    WalletRepository.setCurrentWallet(it.first().id)
+                    WalletRepository.updateWalletData(listWallet)
+
+                    if (it.isNotEmpty()) {
+                        WalletRepository.setCurrentWallet(listWallet.first().id)
+                    }
                 }
             }
 
-            CategoryRepository.getCategories().collect {
-                CategoryRepository.updateCategoriesMap(it)
-            }
+
         }
     }
 

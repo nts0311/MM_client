@@ -49,5 +49,7 @@ class MMApplication: Application(), Application.ActivityLifecycleCallbacks {
     companion object {
         var currentActivity: Activity? = null
         lateinit var self: Context
+
+
     }
 }

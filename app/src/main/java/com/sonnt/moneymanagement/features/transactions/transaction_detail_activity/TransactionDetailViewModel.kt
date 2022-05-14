@@ -32,9 +32,7 @@ class TransactionDetailViewModel() : BaseViewModel() {
     fun insertTransaction(transaction: Transaction) {
         viewModelScope.launch {
             val responseCode = TransactionRepository.insertTransaction(transaction)
-            if (responseCode == 200) {
-                MMContext.addedTransaction.value = transaction
-            }
+            WalletRepository.refreshCurrentWallet()
         }
 
     }
@@ -42,6 +40,7 @@ class TransactionDetailViewModel() : BaseViewModel() {
     fun deleteTransaction(transaction: Transaction) {
         viewModelScope.launch {
             TransactionRepository.deleteTransaction(transaction)
+            WalletRepository.refreshCurrentWallet()
         }
 
     }

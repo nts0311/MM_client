@@ -55,7 +55,11 @@ class TransactionDatasource {
     }
 
     suspend fun deleteTransaction(transaction: Transaction): Int {
-        val body = DeleteTransactionRequest(transaction.id)
+        val body = DeleteTransactionRequest(
+            transactionId = transaction.id,
+            walletId = transaction.walletId,
+            amount = transaction.amount.toDouble()
+        )
 
         httpRequest { transactionService.deleteTransaction(body) }
 

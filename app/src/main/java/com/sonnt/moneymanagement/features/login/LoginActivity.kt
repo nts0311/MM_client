@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
+import com.sonnt.moneymanagement.MMApplication
 import com.sonnt.moneymanagement.R
 import com.sonnt.moneymanagement.data.repositories.AuthRepository
 import com.sonnt.moneymanagement.databinding.ActivityLoginBinding
@@ -45,6 +46,17 @@ class LoginActivity : AppCompatActivity() {
             }
 
 
+        }
+    }
+
+    companion object {
+        fun logout() {
+            if(MMApplication.currentActivity!!.javaClass == LoginActivity::class.java)
+                return
+
+            val intent = Intent(MMApplication.self, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+            MMApplication.self.startActivity(intent)
         }
     }
 }

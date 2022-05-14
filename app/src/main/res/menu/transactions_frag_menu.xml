@@ -25,4 +25,7 @@
     <item
         android:id="@+id/edit_wallet_item"
         android:title="@string/edit_wallet" />
+    <item
+        android:id="@+id/logout"
+        android:title="Logout" />
 </menu>
