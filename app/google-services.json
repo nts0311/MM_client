@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "488902366242",
+    "project_id": "mmnotification-77937",
+    "storage_bucket": "mmnotification-77937.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:488902366242:android:65ec460d5de47c677da67b",
+        "android_client_info": {
+          "package_name": "com.sonnt.moneymanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "488902366242-oq6kbfp7nh43rpgditi6uh77b3p5dki1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqNEi-yg-ZCSsfb2d6K1Irly2i6pwPQGc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "488902366242-oq6kbfp7nh43rpgditi6uh77b3p5dki1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

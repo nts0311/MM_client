@@ -1,19 +1,32 @@
 package com.sonnt.moneymanagement.features.main_activity
 
+import android.Manifest
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.tabs.TabLayout
+import com.google.firebase.messaging.FirebaseMessaging
 import com.sonnt.moneymanagement.R
 import com.sonnt.moneymanagement.constant.TimeRange
 import com.sonnt.moneymanagement.constant.ViewType
+import com.sonnt.moneymanagement.data.network.NetworkModule
+import com.sonnt.moneymanagement.data.network.request.UpdateFcmTokenRequest
 import com.sonnt.moneymanagement.data.repositories.AuthRepository
 import com.sonnt.moneymanagement.databinding.ActivityMainBinding
 import com.sonnt.moneymanagement.features.base.BaseActivity
@@ -27,6 +40,7 @@ import com.sonnt.moneymanagement.utils.NumberFormatter
 import com.sonnt.moneymanagement.utils.createRangeSelectDialog
 import com.sonnt.moneymanagement.utils.showRangeSelectDialog
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class MainActivity : BaseActivity() {
@@ -39,6 +53,15 @@ class MainActivity : BaseActivity() {
 
     private val viewModel: MainActivityViewModel by viewModels()
 
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+
+        } else {
+
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +69,39 @@ class MainActivity : BaseActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         initScreen()
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result
+            Log.d("FCM", token)
+
+            GlobalScope.launch {
+                NetworkModule.authService.updateFcmToken(UpdateFcmTokenRequest(fcmToken = token))
+            }
+        })
+
+        createNotificationChannel()
+    }
+
+    private fun createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = "mm_noti_channel"
+            val descriptionText = "tung nui"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel("mm_noti_channel", name, importance).apply {
+                description = descriptionText
+            }
+            // Register the channel with the system
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
     }
 
     private fun initScreen() {

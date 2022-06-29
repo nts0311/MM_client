@@ -3,6 +3,7 @@
     package="com.sonnt.moneymanagement">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <application
         android:name=".MMApplication"
@@ -45,6 +46,16 @@
         <activity
             android:name=".features.transactions.transaction_detail_activity.TransactionDetailActivity"
             android:launchMode="singleTask" />
+
+        <service
+            android:name=".utils.FcmService"
+            android:exported="false"
+            android:directBootAware="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>
