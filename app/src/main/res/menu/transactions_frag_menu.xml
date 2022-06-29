@@ -26,6 +26,9 @@
         android:id="@+id/edit_wallet_item"
         android:title="@string/edit_wallet" />
     <item
+        android:id="@+id/upgrade_premium"
+        android:title="@string/upgrade_premium" />
+    <item
         android:id="@+id/logout"
         android:title="Logout" />
 </menu>

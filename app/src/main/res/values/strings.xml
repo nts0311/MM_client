@@ -171,4 +171,6 @@
 
     <string name="days_left"> day(s) left</string>
 
+    <string name="upgrade_premium">Upgrade to Premium</string>
+
 </resources>

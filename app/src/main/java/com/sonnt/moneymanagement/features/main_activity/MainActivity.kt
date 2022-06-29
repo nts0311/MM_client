@@ -18,6 +18,7 @@ import com.sonnt.moneymanagement.data.repositories.AuthRepository
 import com.sonnt.moneymanagement.databinding.ActivityMainBinding
 import com.sonnt.moneymanagement.features.base.BaseActivity
 import com.sonnt.moneymanagement.features.login.LoginActivity
+import com.sonnt.moneymanagement.features.premium.PayPalActivity
 import com.sonnt.moneymanagement.features.report.report_fragment.ReportFragment
 import com.sonnt.moneymanagement.features.transactions.transaction_detail_activity.TransactionDetailActivity
 import com.sonnt.moneymanagement.features.transactions.transactions_fragment.TransactionsFragment
@@ -107,6 +108,11 @@ class MainActivity : BaseActivity() {
             }
 
             R.id.change_pie_mode -> return false
+
+            R.id.upgrade_premium -> {
+                val intent = Intent(this, PayPalActivity::class.java)
+                startActivity(intent)
+            }
 
             R.id.logout -> LoginActivity.logout()
         }

@@ -16,7 +16,7 @@ object NetworkModule {
     var moshi: Moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
     var retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl("https://4cd5-2402-9d80-22a-b2af-f98d-fa9c-8514-e55f.ap.ngrok.io")
+        .baseUrl("https://5caa-116-101-240-126.ap.ngrok.io")
         .client(OkHttpClient.Builder().addInterceptor {chain ->
             val token = AuthRepository.jwtToken
             val request = chain.request().newBuilder().addHeader("Authorization", "Bearer ${token}").build()

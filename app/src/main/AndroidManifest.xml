@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".features.premium.PayPalActivity"
+            android:exported="false" />
+        <activity
             android:name=".features.main_activity.MainActivity"
             android:exported="true" />
         <activity
